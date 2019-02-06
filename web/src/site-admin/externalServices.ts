@@ -1,3 +1,4 @@
+import awsCodeCommitSchemaJSON from '../../../schema/aws_codecommit.schema.json'
 import githubSchemaJSON from '../../../schema/github.schema.json'
 import gitoliteSchemaJSON from '../../../schema/gitolite.schema.json'
 import otherExternalServiceSchemaJSON from '../../../schema/other_external_service.schema.json'
@@ -43,8 +44,7 @@ export const GITHUB_EXTERNAL_SERVICE: ExternalServiceMetadata = {
 export const ALL_EXTERNAL_SERVICES: ExternalServiceMetadata[] = [
     {
         kind: GQL.ExternalServiceKind.AWSCODECOMMIT,
-        jsonSchemaId: 'site.schema.json#definitions/AWSCodeCommitConnection',
-        jsonSchema: siteSchemaJSON,
+        jsonSchema: awsCodeCommitSchemaJSON,
         displayName: 'AWS CodeCommit',
         defaultConfig: `{
   // Use Ctrl+Space for completion, and hover over JSON properties for documentation.
