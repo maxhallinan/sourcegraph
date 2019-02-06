@@ -1,4 +1,5 @@
 import awsCodeCommitSchemaJSON from '../../../schema/aws_codecommit.schema.json'
+import bitbucketServerSchemaJSON from '../../../schema/bitbucket_server.schema.json'
 import githubSchemaJSON from '../../../schema/github.schema.json'
 import gitoliteSchemaJSON from '../../../schema/gitolite.schema.json'
 import otherExternalServiceSchemaJSON from '../../../schema/other_external_service.schema.json'
@@ -58,8 +59,7 @@ export const ALL_EXTERNAL_SERVICES: ExternalServiceMetadata[] = [
     },
     {
         kind: GQL.ExternalServiceKind.BITBUCKETSERVER,
-        jsonSchemaId: 'site.schema.json#definitions/BitbucketServerConnection',
-        jsonSchema: siteSchemaJSON,
+        jsonSchema: bitbucketServerSchemaJSON,
         displayName: 'Bitbucket Server',
         defaultConfig: `{
   // Use Ctrl+Space for completion, and hover over JSON properties for documentation.
