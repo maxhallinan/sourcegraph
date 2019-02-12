@@ -21,17 +21,14 @@ const groupByLine = (decorations: TextDocumentDecoration[]) => {
     return grouped
 }
 
-export const cleanupDecorations = (dom: DOMFunctions, codeView: HTMLElement, lines: number[]): void => {
-    for (const lineNumber of lines) {
-        const codeElement = dom.getCodeElementFromLineNumber(codeView, lineNumber)
-        if (!codeElement) {
-            continue
-        }
-        codeElement.style.backgroundColor = null
+export const cleanupDecorations = (dom: DOMFunctions, codeView: HTMLElement): void => {
+    for (const codeElement of codeView.querySelectorAll('.sourcegraph-decorated')) {
+        ;(codeElement as HTMLElement).style.backgroundColor = null
         const previousDecorations = codeElement.querySelectorAll('.line-decoration-attachment')
         for (const d of previousDecorations) {
             d.remove()
         }
+        codeElement.classList.remove('sourcegraph-decorated')
     }
 }
 
@@ -41,10 +38,9 @@ export const cleanupDecorations = (dom: DOMFunctions, codeView: HTMLElement, lin
 export const applyDecorations = (
     dom: DOMFunctions,
     codeView: HTMLElement,
-    decorations: TextDocumentDecoration[],
-    previousDecorations: number[]
+    decorations: TextDocumentDecoration[]
 ): number[] => {
-    cleanupDecorations(dom, codeView, previousDecorations)
+    cleanupDecorations(dom, codeView)
     const decorationsByLine = groupByLine(decorations)
     for (const [lineNumber, decorationsForLine] of decorationsByLine) {
         const codeElement = dom.getCodeElementFromLineNumber(codeView, lineNumber)
@@ -86,6 +82,7 @@ export const applyDecorations = (
                 codeElement.appendChild(annotation)
             }
         }
+        codeElement.classList.add('sourcegraph-decorated')
     }
     return [...decorationsByLine.keys()]
 }

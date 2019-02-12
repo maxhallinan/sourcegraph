@@ -32,56 +32,46 @@ describe('applyDecorations()', () => {
 
     test('sets the background color', () => {
         const codeView = document.body.querySelector('.code-view') as HTMLElement
-        applyDecorations(
-            dom,
-            codeView,
-            [
-                {
-                    range: {
-                        start: {
-                            line: 0,
-                            character: 0,
-                        },
-                        end: {
-                            line: 0,
-                            character: 0,
-                        },
+        applyDecorations(dom, codeView, [
+            {
+                range: {
+                    start: {
+                        line: 0,
+                        character: 0,
                     },
-                    backgroundColor: 'red',
+                    end: {
+                        line: 0,
+                        character: 0,
+                    },
                 },
-            ],
-            []
-        )
+                backgroundColor: 'red',
+            },
+        ])
         const firstLine = dom.getCodeElementFromLineNumber(codeView, 1)
         expect(firstLine!.style.backgroundColor).toBe('red')
     })
 
     test('adds an `after` annotation', () => {
         const codeView = document.querySelector('.code-view') as HTMLElement
-        applyDecorations(
-            dom,
-            codeView,
-            [
-                {
-                    range: {
-                        start: {
-                            line: 0,
-                            character: 0,
-                        },
-                        end: {
-                            line: 0,
-                            character: 0,
-                        },
+        applyDecorations(dom, codeView, [
+            {
+                range: {
+                    start: {
+                        line: 0,
+                        character: 0,
                     },
-                    after: {
-                        contentText: 'foo',
-                        hoverMessage: 'bar',
-                        linkURL: 'example.org',
+                    end: {
+                        line: 0,
+                        character: 0,
                     },
                 },
-            ],
-            []
-        )
+                after: {
+                    contentText: 'foo',
+                    hoverMessage: 'bar',
+                    linkURL: 'example.org',
+                },
+            },
+        ])
         const annotation = dom
             .getCodeElementFromLineNumber(codeView, 1)!
             .querySelector('.sourcegraph-extension-element.line-decoration-attachment')
@@ -93,61 +83,56 @@ describe('applyDecorations()', () => {
 
     test('adds several decorations on the same line', () => {
         const codeView = document.querySelector('.code-view') as HTMLElement
-        applyDecorations(
-            dom,
-            codeView,
-            [
-                // Set background color
-                {
-                    range: {
-                        start: {
-                            line: 0,
-                            character: 0,
-                        },
-                        end: {
-                            line: 0,
-                            character: 0,
-                        },
+        applyDecorations(dom, codeView, [
+            // Set background color
+            {
+                range: {
+                    start: {
+                        line: 0,
+                        character: 0,
                     },
-                    backgroundColor: 'red',
-                },
-                // Add a link annotation
-                {
-                    range: {
-                        start: {
-                            line: 0,
-                            character: 0,
-                        },
-                        end: {
-                            line: 0,
-                            character: 0,
-                        },
-                    },
-                    after: {
-                        contentText: 'foo',
-                        linkURL: 'example.org',
+                    end: {
+                        line: 0,
+                        character: 0,
                     },
                 },
-                // Add a text annotation with a background color
-                {
-                    range: {
-                        start: {
-                            line: 0,
-                            character: 0,
-                        },
-                        end: {
-                            line: 0,
-                            character: 0,
-                        },
+                backgroundColor: 'red',
+            },
+            // Add a link annotation
+            {
+                range: {
+                    start: {
+                        line: 0,
+                        character: 0,
                     },
-                    after: {
-                        contentText: 'bar',
-                        backgroundColor: 'blue',
+                    end: {
+                        line: 0,
+                        character: 0,
                     },
                 },
-            ],
-            []
-        )
+                after: {
+                    contentText: 'foo',
+                    linkURL: 'example.org',
+                },
+            },
+            // Add a text annotation with a background color
+            {
+                range: {
+                    start: {
+                        line: 0,
+                        character: 0,
+                    },
+                    end: {
+                        line: 0,
+                        character: 0,
+                    },
+                },
+                after: {
+                    contentText: 'bar',
+                    backgroundColor: 'blue',
+                },
+            },
+        ])
         const firstLine = dom.getCodeElementFromLineNumber(codeView, 1) as HTMLElement
         expect(firstLine.style.backgroundColor).toBe('red')
         const annotations = firstLine.querySelectorAll('.sourcegraph-extension-element.line-decoration-attachment')
@@ -161,112 +146,108 @@ describe('applyDecorations()', () => {
 
     test('adds decorations on multiple lines', () => {
         const codeView = document.querySelector('.code-view') as HTMLElement
-        const decoratedLines = applyDecorations(
-            dom,
-            codeView,
-            [
-                {
-                    range: {
-                        start: {
-                            line: 0,
-                            character: 0,
-                        },
-                        end: {
-                            line: 0,
-                            character: 0,
-                        },
+        const decoratedLines = applyDecorations(dom, codeView, [
+            {
+                range: {
+                    start: {
+                        line: 0,
+                        character: 0,
                     },
-                    backgroundColor: 'red',
-                },
-                {
-                    range: {
-                        start: {
-                            line: 2,
-                            character: 0,
-                        },
-                        end: {
-                            line: 2,
-                            character: 0,
-                        },
+                    end: {
+                        line: 0,
+                        character: 0,
                     },
-                    backgroundColor: 'blue',
                 },
-                {
-                    range: {
-                        start: {
-                            line: 3,
-                            character: 0,
-                        },
-                        end: {
-                            line: 3,
-                            character: 0,
-                        },
+                backgroundColor: 'red',
+            },
+            {
+                range: {
+                    start: {
+                        line: 2,
+                        character: 0,
                     },
-                    backgroundColor: 'yellow',
+                    end: {
+                        line: 2,
+                        character: 0,
+                    },
                 },
-            ],
-            []
-        )
+                backgroundColor: 'blue',
+            },
+            {
+                range: {
+                    start: {
+                        line: 3,
+                        character: 0,
+                    },
+                    end: {
+                        line: 3,
+                        character: 0,
+                    },
+                },
+                backgroundColor: 'yellow',
+            },
+        ])
         expect(decoratedLines).toEqual([1, 3, 4])
         expect(dom.getCodeElementFromLineNumber(codeView, 1)!.style.backgroundColor).toBe('red')
         expect(dom.getCodeElementFromLineNumber(codeView, 3)!.style.backgroundColor).toBe('blue')
         expect(dom.getCodeElementFromLineNumber(codeView, 4)!.style.backgroundColor).toBe('yellow')
     })
 
-    test('removes preexisting decorations', () => {
+    test('removes previously applied decorations on successive calls', () => {
         const codeView = document.querySelector('.code-view') as HTMLElement
         const firstLine = codeView.querySelector('.line-1') as HTMLElement
         const thirdLine = codeView.querySelector('.line-3') as HTMLElement
         // Decorate first line
-        const decoratedLines = applyDecorations(
-            dom,
-            codeView,
-            [
-                {
-                    range: {
-                        start: {
-                            line: 0,
-                            character: 0,
-                        },
-                        end: {
-                            line: 0,
-                            character: 0,
-                        },
+        applyDecorations(dom, codeView, [
+            {
+                range: {
+                    start: {
+                        line: 0,
+                        character: 0,
                     },
-                    backgroundColor: 'red',
-                    after: {
-                        contentText: 'foo',
+                    end: {
+                        line: 0,
+                        character: 0,
                     },
                 },
-            ],
-            []
-        )
+                backgroundColor: 'red',
+                after: {
+                    contentText: 'foo',
+                },
+            },
+        ])
         expect(firstLine.style.backgroundColor).toBe('red')
         expect(firstLine.querySelectorAll('.sourcegraph-extension-element.line-decoration-attachment').length).toBe(1)
         // Decorate third line, and pass the decorated lines returned by `applyDecorations`
-        applyDecorations(
-            dom,
-            codeView,
-            [
-                {
-                    range: {
-                        start: {
-                            line: 2,
-                            character: 0,
-                        },
-                        end: {
-                            line: 2,
-                            character: 0,
-                        },
+        applyDecorations(dom, codeView, [
+            {
+                range: {
+                    start: {
+                        line: 2,
+                        character: 0,
                     },
-                    backgroundColor: 'blue',
+                    end: {
+                        line: 2,
+                        character: 0,
+                    },
                 },
-            ],
-            decoratedLines
-        )
+                backgroundColor: 'blue',
+            },
+        ])
         // Only third line should be decorated
         expect(firstLine.style.backgroundColor).toBe('')
         expect(firstLine.querySelectorAll('.sourcegraph-extension-element.line-decoration-attachment').length).toBe(0)
         expect(thirdLine.style.backgroundColor).toBe('blue')
+    })
+
+    test('remove decorations that may already exist in the DOM', () => {
+        const codeView = document.querySelector('.code-view') as HTMLElement
+        const firstLine = codeView.querySelector('.line-1') as HTMLElement
+        firstLine.classList.add('sourcegraph-decorated')
+        firstLine.style.backgroundColor = 'red'
+        applyDecorations(dom, codeView, [])
+        expect(firstLine.classList.contains('sourcegraph-decorated')).toBe(false)
+        expect(firstLine.style.backgroundColor).toBe('')
+        expect(codeView.querySelectorAll('.sourcegraph-decorated').length).toBe(0)
     })
 })

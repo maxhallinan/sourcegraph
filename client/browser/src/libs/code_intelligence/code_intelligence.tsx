@@ -526,13 +526,14 @@ function handleCodeHost(codeHost: CodeHost): Subscription {
                     })
                 }
 
-                let decoratedLines: number[] = []
                 if (!info.baseCommitID) {
-                    extensionsController.services.textDocumentDecoration
-                        .getDecorations(toTextDocumentIdentifier(info))
-                        .subscribe(decorations => {
-                            decoratedLines = applyDecorations(dom, codeView, decorations || [], decoratedLines)
-                        })
+                    subscriptions.add(
+                        extensionsController.services.textDocumentDecoration
+                            .getDecorations(toTextDocumentIdentifier(info))
+                            .subscribe(decorations => {
+                                applyDecorations(dom, codeView, decorations || [])
+                            })
+                    )
                 }
 
                 extensionsController.services.model.model.next({ roots, visibleViewComponents })
